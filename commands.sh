@@ -12,6 +12,10 @@
 shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# setup bash completions
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+      . /etc/bash_completion
+fi
 
 
 # --- COMMAND HISTORY ---
