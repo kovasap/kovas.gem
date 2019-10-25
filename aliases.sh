@@ -22,5 +22,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias hgrep='history | grep'
 
 # common ssh aliases
-alias sd='ssh -o ServerAliveInterval=60 mrc.sea.corp.google.com'
+alias sd='ssh -o ServerAliveInterval=60 kovas.c.googlers.com'
+
+# faster google certification
+alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
 
