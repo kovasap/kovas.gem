@@ -27,3 +27,6 @@ alias sd='ssh -o ServerAliveInterval=60 kovas.c.googlers.com'
 # faster google certification
 alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
 
+# kitty terminal aliases
+alias icat='kitty +kitten icat'
+
