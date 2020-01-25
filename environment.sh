@@ -9,4 +9,7 @@
 
 export PATH=$PATH:~/bin:~/.local/bin
 
+# Make neovim the default editor for everything.
+export VISUAL=nvim
+export EDITOR=nvim
 
