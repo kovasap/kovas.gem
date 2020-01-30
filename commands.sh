@@ -199,6 +199,7 @@ fi
 
 
 # --- Python ---
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 
