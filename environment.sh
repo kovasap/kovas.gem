@@ -13,3 +13,9 @@ export PATH=$PATH:~/bin:~/.local/bin
 export VISUAL=nvim
 export EDITOR=nvim
 
+
+hg_title() {
+   hg log -r . --template "{desc}" 2>/dev/null
+}
+
+TITLE_INFO=(hostname_title hg_title)
