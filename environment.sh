@@ -16,7 +16,7 @@ export EDITOR=nvim
 
 repo_title() {
    hg log -r . --template "{desc}" 2>/dev/null
-   git config --local remote.origin.url|sed -n 's#.*/\([^.]*\)\.git#\1#p' 2>/dev/null
+   git config --local remote.origin.url 2>/dev/null | sed -n 's#.*/\([^.]*\)\.git#\1#p'
 }
 
 TITLE_INFO=(hostname_title repo_title)
