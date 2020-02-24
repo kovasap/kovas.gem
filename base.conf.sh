@@ -11,4 +11,8 @@
 # Users are encouraged to update or override the values specified here.
 #
 
+hg_title() {
+   hg log -r . --template "{desc}" 2>/dev/null
+}
 
+TITLE_INFO+=(hg_title)
