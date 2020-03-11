@@ -30,3 +30,6 @@ alias gcert='gcert; ssh kovas.c.googlers.com prodaccess'
 # kitty terminal aliases
 alias icat='kitty +kitten icat'
 
+# Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
+alias hg='chg'
+
