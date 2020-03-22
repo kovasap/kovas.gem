@@ -19,4 +19,4 @@ repo_title() {
    git config --local remote.origin.url 2>/dev/null | sed -n 's#.*/\([^.]*\)\.git#\1#p'
 }
 
-TITLE_INFO=(hostname_title repo_title)
+TITLE_INFO=(repo_title hostname_title)
