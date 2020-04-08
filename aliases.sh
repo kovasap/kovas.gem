@@ -33,3 +33,9 @@ alias icat='kitty +kitten icat'
 # Faster mercurial startup time (see https://www.mercurial-scm.org/wiki/CHg)
 alias hg='chg'
 
+gp() {
+    git add -u
+    git commit -m "$1"
+    git push
+}
+
