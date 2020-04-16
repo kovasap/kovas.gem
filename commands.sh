@@ -61,6 +61,7 @@ bind -m vi -x '"yy": _xyank'
 
 
 # --- FZF ---
+source ~/.fzf/shell/completion.bash
 # browse chrome history with fzf (see
 # https://junegunn.kr/2015/04/browsing-chrome-history-with-fzf/)
 ch() {
@@ -77,6 +78,21 @@ ch() {
   fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs xdg-open
   rm -r /tmp/ch
 }
+
+_fzf_complete_hg_up() {
+  # Useful reference: http://hgbook.red-bean.com/read/customizing-the-output-of-mercurial.html
+  _fzf_complete --multi --reverse --prompt="revs> " -- "$@" < <(
+    # Get all cl descriptions that are not "unstable" (have 0 instabilities)
+    hg heads --template '{instabilities|count} {desc|firstline} {node|short}\n' | awk '/^0/ {$1 = ""; print $0}'
+  )
+}
+
+_fzf_complete_hg_up_post() {
+  # Get last token, which is the hg "node" or revision hash
+  awk -F" " '{print $NF}'
+}
+
+[ -n "$BASH" ] && complete -F _fzf_complete_hg_up -o default -o bashdefault hg up
 
 __fzf_select__() {
   local cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
@@ -239,15 +255,16 @@ _find_hggit_repo() {
 }
 # Prints the current branch, colored by status, of a Mercurial/Git repo
 vc_prompt() {
-  # do not try to get repo status when in citc clients - is very slow!
-  if [[ $(pwd) == /google/src/cloud* ]]; then
-    return 0
-  fi
   local repo vc vc_and_repo
-  vc_and_repo=$(_find_hggit_repo) || return 0
-  repo=$(echo $vc_and_repo | cut -f1 -d+)
-  vc=$(echo $vc_and_repo | cut -f2 -d+)
-  cd "$repo" || return # so Mercurial/git don't have to do the same find we just did
+  if [[ $(pwd) == /google/src/cloud* ]]; then
+    vc="hg"
+    cd /google/src/cloud/kovas/chamber_regression_replication || return
+  else
+    vc_and_repo=$(_find_hggit_repo) || return 0
+    repo=$(echo $vc_and_repo | cut -f1 -d+)
+    vc=$(echo $vc_and_repo | cut -f2 -d+)
+    cd "$repo" || return # so Mercurial/git don't have to do the same find we just did
+  fi
   if [[ "$vc" == "hg" ]]; then
     local branch num_heads heads
     branch=$(hg branch 2> /dev/null) || return 0
